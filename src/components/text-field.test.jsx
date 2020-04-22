@@ -54,4 +54,81 @@ describe('TextField', () => {
       expect(help.text()).to.be.string(helpText);
     });
   });
+
+  describe('validator', () => {
+    describe('default validator', () => {
+      let wrapper;
+
+      beforeEach(() => {
+        wrapper = shallow(
+          <TextField label="test label" />,
+        );
+        wrapper.find('input').simulate('change', { target: { value: 'test input' } });
+      });
+
+      it('does not show error message', () => {
+        expect(wrapper.contains('small.test_label-error')).to.be.false;
+      });
+    });
+
+    describe('from props', () => {
+      const mockValidator = jest.fn().mockImplementation((_name) => null);
+      const testInput = 'test input';
+
+      beforeEach(() => {
+        mockValidator.mockClear();
+
+        const wrapper = shallow(
+          <TextField label="test label" validator={mockValidator} />,
+        );
+        wrapper.find('input').simulate('change', { target: { value: testInput } });
+      });
+
+      it('gets called with changed text from input', () => {
+        expect(mockValidator.mock.calls.length).to.eql(1);
+        expect(mockValidator.mock.calls[0][0]).to.eql(testInput);
+      });
+    });
+
+    describe('when returns null', () => {
+      const mockValidator = jest.fn().mockImplementation((_name) => null);
+      const testInput = 'test input';
+      let wrapper;
+
+      beforeEach(() => {
+        mockValidator.mockClear();
+
+        wrapper = shallow(
+          <TextField label="test label" validator={mockValidator} />,
+        );
+        wrapper.find('input').simulate('change', { target: { value: testInput } });
+      });
+
+      it('does not show error', () => {
+        expect(wrapper.contains('small#test_label-error')).to.be.false;
+      });
+    });
+
+    describe('when returns error message', () => {
+      const errorMessage = 'test error message';
+      const mockValidator = jest.fn().mockImplementation((_name) => errorMessage);
+      const testInput = 'test input';
+      let wrapper;
+
+      beforeEach(() => {
+        mockValidator.mockClear();
+        wrapper = shallow(
+          <TextField label="test label" validator={mockValidator} />,
+        );
+        wrapper.find('input').simulate('change', { target: { value: testInput } });
+      });
+
+      it('shows error message', () => {
+        const error = wrapper.find('small#test_label-error');
+
+        expect(error).to.exist;
+        expect(error.text()).to.be.string(errorMessage);
+      });
+    });
+  });
 });
