@@ -16,18 +16,11 @@ $ npm run server
 ```
 
 Development server listens at [http://localhost:3000](http://localhost:3000).
-Can be changed by updating [webpack.config.js](webpack.config.js).
 
 #### Run linter
 ```bash
 $ npm run lint
 ```
-
-[ESLint](https://eslint.org/) is configured to extend from
-[eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react)
-& [eslint-config-airbnb](https://github.com/airbnb/javascript)
-
-Configuratin is in [.eslintrc.js](.eslintrc.js)
 
 #### Run unit tests
 ```bash

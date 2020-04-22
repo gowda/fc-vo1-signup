@@ -1,7 +1,7 @@
 {
-  "name": "react.template",
+  "name": "fc-vo1-signup",
   "version": "0.42.0",
-  "description": "react application template",
+  "description": "multi-page signup application using react",
   "main": "index.js",
   "scripts": {
     "lint": "eslint --ext .js --ext .jsx src/ features/",
