@@ -41,10 +41,13 @@ Feature: fc-vo1-signup
     Given I navigate to the url "http://localhost:3000"
     When I enter "Test user name" in "Full name" field
     And I click on "Next"
-    And I enter "Test user name" in "Email" field
+    And I enter "user@example.org" in "Email" field
     And I click on "Next"
     And I enter "+4915212345432" in "Phone number" field
     And I click on "Next"
     And I click on radio button "More than 4.000"
     And I click on "Next"
-    Then I should see the text "We are done here"
+    Then I should see the text "Test user name"
+    And I should see the text "user@example.org"
+    And I should see the text "+4915212345432"
+    And I should see the text "More than 4.000"

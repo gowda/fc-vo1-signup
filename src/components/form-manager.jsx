@@ -10,6 +10,10 @@ export default function FormManager({
     setUpdatedValue(changedValue);
   }
 
+  function handleButtonClick() {
+    onChange(updatedValue);
+  }
+
   return (
     <div className="row h-100 align-items-center justify-content-center">
       <div className="col-auto">
@@ -19,7 +23,7 @@ export default function FormManager({
         <button
           type="button"
           className="btn btn-success"
-          onClick={() => onChange(updatedValue)}
+          onClick={handleButtonClick}
         >
           {buttonLabel}
         </button>

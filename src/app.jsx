@@ -6,6 +6,7 @@ import PhoneNumberField from './components/phone-number';
 import SalaryIndicatorField from './components/salary-indicator';
 
 import FormManager from './components/form-manager';
+import Summary from './components/summary';
 
 const STEPS = [
   {
@@ -63,7 +64,7 @@ export default (_props) => {
               onChange={(value) => handleChange(value)}
             />
           )
-          : <div>We are done here</div>}
+          : <Summary values={response} />}
       </div>
     </div>
   );

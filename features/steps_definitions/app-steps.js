@@ -77,8 +77,9 @@ When('I enter {string} in {string} field', function(value, label) {
 
 When('I click on radio button {string}', function(label) {
   const world = this;
+  const id = `wrapper-${label.toLowerCase().replace(/\s/g, '_')}`;
 
-  return world.driver.wait(until.elementsLocated(By.css('input[type="radio"]')))
-    .then((buttons) => buttons.find(async (b) => (await b.getText()) === label))
+  return world.driver.wait(until.elementLocated(By.id(id)))
+    .then((wrapper) => wrapper.findElement(By.css('input')))
     .then((button) => button.click());
 });

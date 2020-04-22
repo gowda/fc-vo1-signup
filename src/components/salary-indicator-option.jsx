@@ -5,7 +5,7 @@ export default function SalaryIndicatorOption({ label, checked, onChange }) {
   const id = label.toLowerCase().replace(/\s/g, '_');
 
   return (
-    <div className="form-check">
+    <div id={`wrapper-${id}`} className="form-check">
       <input
         className="form-check-input"
         type="radio"
