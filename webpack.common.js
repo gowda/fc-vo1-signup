@@ -18,7 +18,7 @@ module.exports = {
   resolve: { extensions: ['.js', '.jsx'] },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/',
+    publicPath: '',
     filename: 'bundle.js',
   },
   plugins: [
@@ -26,6 +26,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'src/index.ejs',
     }),
-    new HtmlWebpackTagsPlugin({ tags: ['custom.css'], append: true, publicPath: '/css' }),
+    new HtmlWebpackTagsPlugin({ tags: ['custom.css'], append: true, publicPath: 'css' }),
   ],
 };
