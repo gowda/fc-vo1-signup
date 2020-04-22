@@ -32,11 +32,19 @@ Given('I navigate to the url {string}', function(url) {
   return this.driver.get(url);
 });
 
-Then('I should see the text {string}', function(expected) {
+Then('I should see the field {string}', function(expected) {
   const world = this;
 
-  return world.driver.findElement(By.tagName('h1'))
-    .then((node) => world.driver.wait(until.elementIsVisible(node)))
-    .then((node) => node.getText())
-    .then((text) => expect(text).to.have.string(expected));
+  return world.driver.wait(until.elementsLocated(By.tagName('label')))
+    .then((nodes) => Promise.all(nodes.map((n) => n.getText())))
+    .then((labels) => expect(labels.some((l) => l === expected)).to.be.true);
+});
+
+Then('I should see a radio button with {string}', function(expected) {
+  const world = this;
+
+  // FIXME: also check for a radio button for each label
+  return world.driver.wait(until.elementsLocated(By.tagName('label')))
+    .then((nodes) => Promise.all(nodes.map((n) => n.getText())))
+    .then((labels) => expect(labels.some((l) => l === expected)).to.be.true);
 });

@@ -37,5 +37,14 @@ module.exports = {
         ]
       }
     ],
-  }
+    'jsx-a11y/label-has-associated-control': 'off',
+  },
+  overrides: [
+    {
+      "files": ['*.test.js', '*.test.jsx'],
+      "rules": {
+          "no-unused-expressions": "off"
+      }
+    }
+  ]
 }
