@@ -33,7 +33,8 @@ module.exports = {
         'devDependencies': [
           'src/setupTests.js',
           'src/**/*.test.js',
-          'src/**/*.test.jsx'
+          'src/**/*.test.jsx',
+          'webpack.*.js',
         ]
       }
     ],
