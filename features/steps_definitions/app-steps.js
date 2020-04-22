@@ -1,6 +1,6 @@
 import { By, until } from 'selenium-webdriver';
 import {
-  Given, Then, After,
+  Given, Then, After, When,
 } from 'cucumber';
 
 import * as seleniumWebdriver from 'selenium-webdriver';
@@ -45,6 +45,22 @@ Then('I should see a radio button with {string}', function(expected) {
 
   // FIXME: also check for a radio button for each label
   return world.driver.wait(until.elementsLocated(By.tagName('label')))
+    .then((nodes) => Promise.all(nodes.map((n) => n.getText())))
+    .then((labels) => expect(labels.some((l) => l === expected)).to.be.true);
+});
+
+When('I click on {string}', function(label) {
+  const world = this;
+
+  return world.driver.wait(until.elementsLocated(By.css('button')))
+    .then((buttons) => buttons.find(async (b) => (await b.getText()) === label))
+    .then((button) => button.click());
+});
+
+Then('I should see the text {string}', function(expected) {
+  const world = this;
+
+  return world.driver.wait(until.elementsLocated(By.css('div')))
     .then((nodes) => Promise.all(nodes.map((n) => n.getText())))
     .then((labels) => expect(labels.some((l) => l === expected)).to.be.true);
 });

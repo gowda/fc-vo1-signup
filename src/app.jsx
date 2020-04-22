@@ -1,22 +1,65 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import FullNameField from './components/fullname';
 import EmailField from './components/email';
 import PhoneNumberField from './components/phone-number';
 import SalaryIndicatorField from './components/salary-indicator';
 
-export default (_props) => (
-  <div className="container h-100">
-    <div className="row h-100 align-items-center justify-content-center">
-      <div className="col-auto">
-        <FullNameField />
-        <EmailField />
-        <PhoneNumberField />
-        <SalaryIndicatorField />
-        <button type="button" className="btn btn-success">Submit</button>
-        {' '}
-        <button type="button" className="btn btn-secondary">Reset</button>
+import FormManager from './components/form-manager';
+
+const STEPS = [
+  {
+    component: FullNameField,
+    label: 'Full name',
+    buttonLabel: 'Next',
+  },
+  {
+    component: EmailField,
+    label: 'Email',
+    buttonLabel: 'Next',
+  },
+  {
+    component: PhoneNumberField,
+    label: 'Phone number',
+    buttonLabel: 'Next',
+  },
+  {
+    component: SalaryIndicatorField,
+    label: 'Salary',
+    buttonLabel: 'Next',
+  },
+];
+
+export default (_props) => {
+  const [step, setStep] = useState(0);
+  const [response, setResponse] = useState([]);
+
+  function handleChange(value) {
+    setResponse([
+      ...response,
+      { ...STEPS[step], value },
+    ]);
+
+    if (step + 1 === STEPS.length) {
+      setStep(-1);
+    } else {
+      setStep(step + 1);
+    }
+  }
+
+  return (
+    <div className="container h-100">
+      <div className="row h-100 align-items-center justify-content-center">
+        { step !== -1 && step < STEPS.length
+          ? (
+            <FormManager
+              component={STEPS[step].component}
+              buttonLabel={STEPS[step].buttonLabel}
+              onChange={(value) => handleChange(value)}
+            />
+          )
+          : <div>We are done here</div>}
       </div>
     </div>
-  </div>
-);
+  );
+};
