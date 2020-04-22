@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 export default function TextField({
-  label, placeholder, helpText, validator,
+  label, placeholder, helpText, validator, onChange,
 }) {
   const id = label.replace(/\s/g, '_');
   const [error, setError] = useState(null);
@@ -10,6 +10,10 @@ export default function TextField({
   function validate(input) {
     const ret = validator(input);
     setError(ret);
+
+    if (!ret) {
+      onChange(input);
+    }
   }
 
   return (
@@ -35,7 +39,7 @@ export default function TextField({
       { error && (
       <small
         id={`${id}-error`}
-        className="form-text text-muted"
+        className="form-text text-danger"
       >
         {error}
       </small>
@@ -49,6 +53,7 @@ TextField.propTypes = {
   placeholder: PropTypes.string,
   helpText: PropTypes.string,
   validator: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
 };
 
 TextField.defaultProps = {

@@ -13,7 +13,7 @@ describe('TextField', () => {
 
   describe('with only required props', () => {
     it('renders the label from props with other defaults', () => {
-      const wrapper = shallow(<TextField label="test label" />);
+      const wrapper = shallow(<TextField label="test label" onChange={() => null} />);
 
       const label = wrapper.find('label');
       expect(label).to.exist;
@@ -38,6 +38,7 @@ describe('TextField', () => {
           label={labelText}
           placeholder={placeholderText}
           helpText={helpText}
+          onChange={() => null}
         />,
       );
 
@@ -61,7 +62,7 @@ describe('TextField', () => {
 
       beforeEach(() => {
         wrapper = shallow(
-          <TextField label="test label" />,
+          <TextField label="test label" onChange={() => null} />,
         );
         wrapper.find('input').simulate('change', { target: { value: 'test input' } });
       });
@@ -79,7 +80,11 @@ describe('TextField', () => {
         mockValidator.mockClear();
 
         const wrapper = shallow(
-          <TextField label="test label" validator={mockValidator} />,
+          <TextField
+            label="test label"
+            validator={mockValidator}
+            onChange={() => null}
+          />,
         );
         wrapper.find('input').simulate('change', { target: { value: testInput } });
       });
@@ -91,15 +96,21 @@ describe('TextField', () => {
     });
 
     describe('when returns null', () => {
+      const mockOnChange = jest.fn().mockImplementation((_name) => null);
       const mockValidator = jest.fn().mockImplementation((_name) => null);
       const testInput = 'test input';
       let wrapper;
 
       beforeEach(() => {
+        mockOnChange.mockClear();
         mockValidator.mockClear();
 
         wrapper = shallow(
-          <TextField label="test label" validator={mockValidator} />,
+          <TextField
+            label="test label"
+            validator={mockValidator}
+            onChange={mockOnChange}
+          />,
         );
         wrapper.find('input').simulate('change', { target: { value: testInput } });
       });
@@ -107,18 +118,29 @@ describe('TextField', () => {
       it('does not show error', () => {
         expect(wrapper.contains('small#test_label-error')).to.be.false;
       });
+
+      it('calls onChange with input', () => {
+        expect(mockOnChange.mock.calls).to.have.lengthOf(1);
+        expect(mockOnChange.mock.calls[0][0]).to.be.string(testInput);
+      });
     });
 
     describe('when returns error message', () => {
       const errorMessage = 'test error message';
+      const mockOnChange = jest.fn().mockImplementation((_name) => null);
       const mockValidator = jest.fn().mockImplementation((_name) => errorMessage);
       const testInput = 'test input';
       let wrapper;
 
       beforeEach(() => {
+        mockOnChange.mockClear();
         mockValidator.mockClear();
         wrapper = shallow(
-          <TextField label="test label" validator={mockValidator} />,
+          <TextField
+            label="test label"
+            validator={mockValidator}
+            onChange={mockOnChange}
+          />,
         );
         wrapper.find('input').simulate('change', { target: { value: testInput } });
       });
@@ -129,6 +151,33 @@ describe('TextField', () => {
         expect(error).to.exist;
         expect(error.text()).to.be.string(errorMessage);
       });
+
+      it('does not call onChange', () => {
+        expect(mockOnChange.mock.calls).to.have.lengthOf(0);
+      });
+    });
+  });
+
+  describe('onChange', () => {
+    const mockOnChange = jest.fn().mockImplementation((_name) => null);
+    const testInput = 'test input';
+
+    beforeEach(() => {
+      mockOnChange.mockClear();
+
+      const wrapper = shallow(
+        <TextField
+          label="test label"
+          validator={() => null}
+          onChange={mockOnChange}
+        />,
+      );
+      wrapper.find('input').simulate('change', { target: { value: testInput } });
+    });
+
+    it('gets called with changed text from input', () => {
+      expect(mockOnChange.mock.calls.length).to.eql(1);
+      expect(mockOnChange.mock.calls[0][0]).to.eql(testInput);
     });
   });
 });

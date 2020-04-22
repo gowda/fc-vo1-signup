@@ -7,7 +7,7 @@ import TextField from './text-field';
 
 describe('EmailField', () => {
   it('renders TextField', () => {
-    const wrapper = shallow(<EmailField />);
+    const wrapper = shallow(<EmailField onChange={() => null} />);
     const textField = wrapper.find(TextField);
 
     expect(textField).to.exist;
