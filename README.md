@@ -1,8 +1,8 @@
-# react.template
-![](https://github.com/gowda/react.template/workflows/lint-and-tests/badge.svg)
-![](https://github.com/gowda/react.template/workflows/features/badge.svg)
+# fc-vo1-signup
+![](https://github.com/gowda/fc-vo1-signup/workflows/lint-and-tests/badge.svg)
+![](https://github.com/gowda/fc-vo1-signup/workflows/features/badge.svg)
 
-template for react application.
+multi-page signup application using react
 
 ## Usage
 `react-app` is assumed as name of the application to be created.
