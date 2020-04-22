@@ -1,31 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const STRINGS = [
-  'hello',
-  'hallo',
-  'namaskara',
-  'hola',
-  'namaste',
-  'aDDa bidde',
-];
+export default function FormManager({
+  component, value, buttonLabel, onChange,
+}) {
+  const [updatedValue, setUpdatedValue] = useState(value);
 
-function randomString() {
-  const index = Math.floor(Math.random() * STRINGS.length);
-  return STRINGS[index];
-}
+  function handleChange(changedValue) {
+    setUpdatedValue(changedValue);
+  }
 
-export default function FormManager({ component, buttonLabel, onChange }) {
   return (
     <div className="row h-100 align-items-center justify-content-center">
       <div className="col-auto">
-        {React.createElement(component)}
+        {React.createElement(component, { value: updatedValue, onChange: handleChange })}
       </div>
       <div className="col">
         <button
           type="button"
           className="btn btn-success"
-          onClick={() => onChange(randomString())}
+          onClick={() => onChange(updatedValue)}
         >
           {buttonLabel}
         </button>
@@ -36,6 +30,7 @@ export default function FormManager({ component, buttonLabel, onChange }) {
 
 FormManager.propTypes = {
   component: PropTypes.elementType.isRequired,
+  value: PropTypes.string.isRequired,
   buttonLabel: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };

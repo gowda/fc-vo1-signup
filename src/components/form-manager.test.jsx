@@ -20,6 +20,7 @@ describe('FormManager', () => {
       const wrapper = shallow(
         <FormManager
           component={component}
+          value="test value"
           buttonLabel={buttonLabel}
           onChange={mockOnChange}
         />,
@@ -44,6 +45,7 @@ describe('FormManager', () => {
         wrapper = shallow(
           <FormManager
             component={component}
+            value="test value"
             buttonLabel={buttonLabel}
             onChange={mockOnChange}
           />,
@@ -55,7 +57,7 @@ describe('FormManager', () => {
       it('is called with a value on button click', () => {
         expect(mockOnChange.mock.calls.length).to.eql(1);
         expect(mockOnChange.mock.calls[0][0]).to.exist;
-        expect(mockOnChange.mock.calls[0][0]).not.to.have.lengthOf(0);
+        expect(mockOnChange.mock.calls[0][0]).to.be.string('test value');
       });
     });
   });

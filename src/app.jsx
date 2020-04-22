@@ -11,21 +11,25 @@ const STEPS = [
   {
     component: FullNameField,
     label: 'Full name',
+    value: '',
     buttonLabel: 'Next',
   },
   {
     component: EmailField,
     label: 'Email',
+    value: '',
     buttonLabel: 'Next',
   },
   {
     component: PhoneNumberField,
     label: 'Phone number',
+    value: '',
     buttonLabel: 'Next',
   },
   {
     component: SalaryIndicatorField,
     label: 'Salary',
+    value: '',
     buttonLabel: 'Next',
   },
 ];
@@ -54,6 +58,7 @@ export default (_props) => {
           ? (
             <FormManager
               component={STEPS[step].component}
+              value={STEPS[step].value}
               buttonLabel={STEPS[step].buttonLabel}
               onChange={(value) => handleChange(value)}
             />

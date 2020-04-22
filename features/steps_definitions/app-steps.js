@@ -64,3 +64,21 @@ Then('I should see the text {string}', function(expected) {
     .then((nodes) => Promise.all(nodes.map((n) => n.getText())))
     .then((labels) => expect(labels.some((l) => l === expected)).to.be.true);
 });
+
+When('I enter {string} in {string} field', function(value, label) {
+  const world = this;
+
+  return world.driver.wait(until.elementsLocated(By.css('label')))
+    .then((labelNodes) => labelNodes.find(async (l) => (await l.getText()) === label))
+    .then((labelNode) => labelNode.getAttribute('for'))
+    .then((id) => world.driver.findElement(By.id(id)))
+    .then((input) => input.sendKeys(value));
+});
+
+When('I click on radio button {string}', function(label) {
+  const world = this;
+
+  return world.driver.wait(until.elementsLocated(By.css('input[type="radio"]')))
+    .then((buttons) => buttons.find(async (b) => (await b.getText()) === label))
+    .then((button) => button.click());
+});
