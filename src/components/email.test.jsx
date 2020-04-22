@@ -6,7 +6,7 @@ import EmailField from './email';
 import TextField from './text-field';
 
 describe('EmailField', () => {
-  it('renders the message', () => {
+  it('renders TextField', () => {
     const wrapper = shallow(<EmailField />);
     const textField = wrapper.find(TextField);
 

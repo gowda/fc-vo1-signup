@@ -6,7 +6,7 @@ import PhoneNumberField from './phone-number';
 import TextField from './text-field';
 
 describe('Phone number', () => {
-  it('renders the message', () => {
+  it('renders the TextField', () => {
     const wrapper = shallow(<PhoneNumberField />);
     const textField = wrapper.find(TextField);
 

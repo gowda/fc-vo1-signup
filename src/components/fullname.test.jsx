@@ -6,7 +6,7 @@ import FullNameField from './fullname';
 import TextField from './text-field';
 
 describe('FullNameField', () => {
-  it('renders the message', () => {
+  it('renders the TextField', () => {
     const wrapper = shallow(<FullNameField />);
     const textField = wrapper.find(TextField);
 
