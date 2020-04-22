@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 export default function FormManager({
   component, value, buttonLabel, onChange,
 }) {
   const [updatedValue, setUpdatedValue] = useState(value);
+
+  useEffect(() => {
+    setUpdatedValue(value);
+  }, [component]);
 
   function handleChange(changedValue) {
     setUpdatedValue(changedValue);
@@ -23,6 +27,7 @@ export default function FormManager({
         type="button"
         className="btn btn-success ml-2 mb-2 flex-sm-grow-5 flex-grow-0"
         onClick={handleButtonClick}
+        disabled={updatedValue === ''}
       >
         {buttonLabel}
       </button>
