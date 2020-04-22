@@ -15,19 +15,17 @@ export default function FormManager({
   }
 
   return (
-    <div className="row h-100 align-items-center justify-content-center">
-      <div className="col-auto">
+    <div className="flex-grow-1 d-flex flex-column flex-sm-row justify-content-center align-items-right align-items-sm-center">
+      <div className="flex-sm-grow-1 flex-grow-0">
         {React.createElement(component, { value: updatedValue, onChange: handleChange })}
       </div>
-      <div className="col">
-        <button
-          type="button"
-          className="btn btn-success"
-          onClick={handleButtonClick}
-        >
-          {buttonLabel}
-        </button>
-      </div>
+      <button
+        type="button"
+        className="btn btn-success ml-2 mb-2 flex-sm-grow-5 flex-grow-0"
+        onClick={handleButtonClick}
+      >
+        {buttonLabel}
+      </button>
     </div>
   );
 }

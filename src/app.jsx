@@ -53,19 +53,17 @@ export default (_props) => {
   }
 
   return (
-    <div className="container h-100">
-      <div className="row h-100 align-items-center justify-content-center">
-        { step !== -1 && step < STEPS.length
-          ? (
-            <FormManager
-              component={STEPS[step].component}
-              value={STEPS[step].value}
-              buttonLabel={STEPS[step].buttonLabel}
-              onChange={(value) => handleChange(value)}
-            />
-          )
-          : <Summary values={response} />}
-      </div>
+    <div className="container h-100 d-flex justify-content-center justify-content-center">
+      { step !== -1 && step < STEPS.length
+        ? (
+          <FormManager
+            component={STEPS[step].component}
+            value={STEPS[step].value}
+            buttonLabel={STEPS[step].buttonLabel}
+            onChange={(value) => handleChange(value)}
+          />
+        )
+        : <Summary values={response} />}
     </div>
   );
 };

@@ -14,12 +14,12 @@ const OPTIONS = [
 export default function SalaryIndicator({ value, onChange }) {
   return (
     <div className="form-group">
-      <label htmlFor="salary-indicator">
+      <label className="salary-indicator-label" htmlFor="salary-indicator mb-0">
         What is your monthly income?
       </label>
       <small
         id="salary-indicator-help"
-        className="form-text text-muted"
+        className="form-text text-muted mt-0 mb-2"
       >
         Please which salaray range group your income belongs to.
       </small>
