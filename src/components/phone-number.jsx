@@ -1,22 +1,10 @@
 import React from 'react';
+import TextField from './text-field';
 
 export default (_props) => (
-  <div className="form-group">
-    <label htmlFor="phone-number">
-      Phone number
-    </label>
-    <input
-      type="phone"
-      className="form-control"
-      id="phone-number"
-      aria-describedby="phone-number-help"
-      placeholder="Enter email"
-    />
-    <small
-      id="phone-number-help"
-      className="form-text text-muted"
-    >
-      Please enter your phone number.
-    </small>
-  </div>
+  <TextField
+    label="Phone number"
+    placeholder="+49 0152 0123 5432"
+    helpText="Please enter your phone number"
+  />
 );
