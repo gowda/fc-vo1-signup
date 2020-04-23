@@ -7,6 +7,7 @@ import SalaryIndicatorField from './components/salary-indicator';
 
 import FormManager from './components/form-manager';
 import Summary from './components/summary';
+import Progress from './components/progress';
 
 const STEPS = [
   {
@@ -53,17 +54,25 @@ export default (_props) => {
   }
 
   return (
-    <div className="container h-100 d-flex justify-content-center justify-content-center">
+    <div className="container h-100 d-flex justify-content-center align-items-center">
       { step !== -1 && step < STEPS.length
         ? (
-          <FormManager
-            component={STEPS[step].component}
-            value={STEPS[step].value}
-            buttonLabel={STEPS[step].buttonLabel}
-            onChange={(value) => handleChange(value)}
-          />
+          <div className="flex-grow-1 d-flex flex-column justify-content-center align-items-right align-items-sm-center">
+            <FormManager
+              component={STEPS[step].component}
+              value={STEPS[step].value}
+              buttonLabel={STEPS[step].buttonLabel}
+              onChange={(value) => handleChange(value)}
+            />
+            <Progress done={step / STEPS.length} />
+          </div>
         )
-        : <Summary values={response} />}
+        : (
+          <div className="flex-grow-1 d-flex flex-column justify-content-center align-items-right align-items-sm-center">
+            <Summary values={response} />
+            <Progress done={1} />
+          </div>
+        )}
     </div>
   );
 };

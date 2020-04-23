@@ -19,7 +19,7 @@ export default function FormManager({
   }
 
   return (
-    <div className="flex-grow-1 d-flex flex-column flex-sm-row justify-content-center align-items-right align-items-sm-center">
+    <div className="w-100 d-flex flex-column flex-sm-row justify-content-center align-items-right align-items-sm-center">
       <div className="flex-sm-grow-1 flex-grow-0">
         {React.createElement(component, { value: updatedValue, onChange: handleChange })}
       </div>
