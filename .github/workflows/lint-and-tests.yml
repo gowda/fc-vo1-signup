@@ -21,14 +21,20 @@ jobs:
     if: ${{ github.ref == 'refs/heads/master' }}
     needs: build
     steps:
-       - name: Build
-         run: npm run build
-       - name: Checkout gh-pages branch
-         run: |
-           cd $GITHUB_WORKSPACE
-           git fetch origin gh-pages
-           git checkout -b gh-pages origin/gh-pages
-           cp -va dist/* .
-           git add index.html bundle.js css
-           git commit -m "Update github pages from master"
-           git push -u origin gh-pages
+      - uses: actions/checkout@v2
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Checkout gh-pages branch
+        run: |
+          cd $GITHUB_WORKSPACE
+          git fetch origin gh-pages
+          git checkout -b gh-pages origin/gh-pages
+          cp -va dist/* .
+          git add index.html bundle.js css
+          git commit -m "Update github pages from master"
+          git push -u origin gh-pages
