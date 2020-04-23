@@ -32,6 +32,8 @@ jobs:
       - name: Checkout gh-pages branch
         run: |
           cd $GITHUB_WORKSPACE
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git config user.name "${{ github.actor }}"
           git fetch origin gh-pages
           git checkout -b gh-pages origin/gh-pages
           cp -va dist/* .
