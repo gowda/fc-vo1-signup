@@ -16,3 +16,19 @@ jobs:
         run: npm run lint
       - name: Tests
         run: npm run test
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/master' }}
+    needs: build
+    steps:
+       - name: Build
+         run: npm run build
+       - name: Checkout gh-pages branch
+         run: |
+           cd $GITHUB_WORKSPACE
+           git fetch origin gh-pages
+           git checkout -b gh-pages origin/gh-pages
+           cp -va dist/* .
+           git add index.html bundle.js css
+           git commit -m "Update github pages from master"
+           git push -u origin gh-pages
